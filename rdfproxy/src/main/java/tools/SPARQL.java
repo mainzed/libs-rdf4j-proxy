@@ -28,7 +28,6 @@ public class SPARQL extends HttpServlet {
 		String result = "";
 		String query = "SELECT * WHERE { ?s ?p ?o } LIMIT 10";
 		String repo = "";
-		String type = "rdf4j";
 		String serverURL = "";
 		// PARSE PARAMETER
 		if (request.getParameter("query") == null) {
@@ -44,9 +43,6 @@ public class SPARQL extends HttpServlet {
 		}
 		if (request.getParameter("file") != null) {
 			file = request.getParameter("file");
-		}
-		if (request.getParameter("type") != null) {
-			type = request.getParameter("type");
 		}
 		if (request.getParameter("serverURL") != null) {
 			serverURL = request.getParameter("serverURL");
@@ -86,8 +82,11 @@ public class SPARQL extends HttpServlet {
 			if (file.equals("true")) {
 				response.setHeader("Content-disposition", "attachment;filename=sparql_result.json");
 			}
-		} else if (format.equals("html")) {
-			response.setContentType("text/html;charset=UTF-8");
+		} else if (format.equals("tsv")) {
+			response.setContentType("text/plain;charset=UTF-8");
+			if (file.equals("true")) {
+				response.setHeader("Content-disposition", "attachment;filename=sparql_result.tsv");
+			}
 		} else {
 			response.setContentType("application/sparql-results+xml;charset=UTF-8");
 		}
