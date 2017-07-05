@@ -1,1 +1,1 @@
-# tools-rdf4j-proxy
+# libs-rdf4j-proxy
